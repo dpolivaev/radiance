@@ -5,6 +5,9 @@
 .gradle/
 .idea/
 .settings/
+.classpath
+.project
+*.jar
 build/
 out/
 bin/

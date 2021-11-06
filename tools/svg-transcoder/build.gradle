@@ -31,7 +31,9 @@
 apply plugin: 'java'
 
 dependencies {
-    implementation "org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"
+    implementation ("org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"){
+    	exclude module: 'xml-apis'
+    }
     implementation project(':common')
 }
 

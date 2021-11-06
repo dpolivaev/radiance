@@ -33,7 +33,9 @@ apply plugin: 'java'
 dependencies {
     implementation "com.jgoodies:jgoodies-common:$jgoodies_common_version"
     implementation "com.jgoodies:jgoodies-forms:$jgoodies_forms_version"
-    implementation "org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"
+    implementation ("org.apache.xmlgraphics:batik-all:${rootProject.ext.batik_version}"){
+    	exclude module: 'xml-apis'
+    }
     implementation project(':common')
     implementation project(':animation')
     implementation project(':theming')

@@ -145,8 +145,15 @@ public class BasicCheckRibbon extends JRibbonFrame {
             JOptionPane.showMessageDialog(BasicCheckRibbon.this, "Expand button clicked");
         }
     }
+    
+    
 
-    private JRibbonBand getActionBand() {
+    @Override
+	public void setJMenuBar(JMenuBar menubar) {
+    	getRootPane().setJMenuBar(menubar);
+	}
+
+	private JRibbonBand getActionBand() {
         JRibbonBand actionBand = new JRibbonBand(resourceBundle.getString("Action.textBandTitle"),
                 Document_new.factory(), new ExpandActionListener());
 
@@ -1600,6 +1607,14 @@ public class BasicCheckRibbon extends JRibbonFrame {
     }
 
     public void configureRibbon() {
+//    	JMenuBar menubar = new JMenuBar();
+//    	JMenu menu1 = new JMenu("menu1");
+//    	menu1.add(new JMenuItem("item1"));
+//    	menu1.add(new JMenuItem("item2"));
+//		menubar.add(menu1);
+//    	JMenu menu2 = new JMenu("menu2");
+//		menubar.add(menu2);
+//		setJMenuBar(menubar);
         this.createCommands();
         this.createStyleGalleryModel();
 
@@ -2444,10 +2459,38 @@ public class BasicCheckRibbon extends JRibbonFrame {
      *
      * @param args Ignored.
      */
+    
+	private static void scaleDefaultUIFonts(double scalingFactor) {
+		Set<Object> keySet = UIManager.getLookAndFeelDefaults().keySet();
+		Set<Font> scaledFonts = new HashSet<>();
+		Object[] keys = keySet.toArray(new Object[keySet.size()]);
+		final UIDefaults uiDefaults = UIManager.getDefaults();
+		final UIDefaults lookAndFeelDefaults = UIManager.getLookAndFeel().getDefaults();
+		for (Object key : keys) {
+			if (isFontKey(key)) {
+				Font font = uiDefaults.getFont(key);
+				if (font != null && ! scaledFonts.contains(font)) {
+					font = scaleFontInt(font, scalingFactor);
+					UIManager.put(key, font);
+					lookAndFeelDefaults.put(key, font);
+					scaledFonts.add(font);
+				}
+			}
+		}
+	}
+	private static boolean isFontKey(Object key) {
+		return key != null && key.toString().toLowerCase().endsWith("font");
+	}
+	public static Font scaleFontInt(Font font, double additionalFactor) {
+		return font.deriveFont(font.getStyle(), Math.round(font.getSize2D() * additionalFactor));
+	}
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+        	scaleDefaultUIFonts(1.6);
             JFrame.setDefaultLookAndFeelDecorated(true);
             RadianceThemingCortex.GlobalScope.setSkin(new GeminiSkin());
+            RadianceThemingCortex.GlobalScope.setFontPolicy(RadianceCommonCortex.getScaledFontPolicy(1.6f));
 
             final BasicCheckRibbon c = new BasicCheckRibbon();
             c.configureRibbon();

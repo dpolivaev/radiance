@@ -30,7 +30,7 @@
 export JAVA_HOME=`/usr/libexec/java_home -v 9`
 alias JAVA="java"
 
-RADIANCE_VERSION=5.0.0
+RADIANCE_VERSION=6.0-SNAPSHOT
 CLASSPATH=../drop/$RADIANCE_VERSION/tools/radiance-svg-transcoder-$RADIANCE_VERSION.jar:../build/libs-core/batik-all-1.14.jar:../build/libs-core/xml-apis-1.4.01.jar:../build/libs-core/xml-apis-ext-1.3.04.jar:../build/libs-core/xmlgraphics-commons-2.6.jar
 
 java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../demos/component-ktx-demo/src/main/kotlin/org/pushingpixels/radiance/demo/component/ktx outputPackageName=org.pushingpixels.radiance.demo.component.ktx templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/kotlin/SvgTranscoderTemplateRadiance.templ outputLanguage=kotlin
@@ -69,8 +69,6 @@ java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchC
 
 # Use deep traversal for all theming apps SVG files
 java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgDeepBatchConverter sourceRootFolder=../demos/theming-apps/src/main/java/org/pushingpixels/radiance/demo/themingapps/ outputRootPackageName=org.pushingpixels.radiance.demo.themingapps templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/java/SvgTranscoderTemplateRadiance.templ outputLanguage=java
-
-java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../demos/rainbow/src/main/kotlin/org/pushingpixels/demo/rainbow/svg outputPackageName=org.pushingpixels.demo.rainbow.svg templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/kotlin/SvgTranscoderTemplateRadiance.templ outputLanguage=kotlin
 
 java -cp $CLASSPATH org.pushingpixels.radiance.tools.svgtranscoder.api.SvgBatchConverter sourceFolder=../tools/tools-common/src/main/kotlin/org/pushingpixels/radiance/tools/common/ outputPackageName=org.pushingpixels.radiance.tools.common templateFile=/org/pushingpixels/radiance/tools/svgtranscoder/api/kotlin/SvgTranscoderTemplateRadiance.templ outputLanguage=kotlin
 

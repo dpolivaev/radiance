@@ -27,28 +27,39 @@
  * OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
  * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.pushingpixels.radiance.common.api;
+package org.pushingpixels.radiance.demo.component.common;
 
-import org.pushingpixels.radiance.common.api.icon.RadianceIcon;
+import org.pushingpixels.radiance.demo.theming.main.check.selector.RadianceFontScaleSelector;
+import org.pushingpixels.radiance.theming.api.RadianceThemingCortex;
+import org.pushingpixels.radiance.theming.api.skin.BusinessSkin;
 
-import java.util.EventListener;
-import java.util.concurrent.ExecutorService;
+import javax.swing.*;
 
-/**
- * This interface is used for asynchronously-loaded contents.  For example, the SVG-based
- * implementation of {@link RadianceIcon} in SVG Transcoder uses the
- * {@link ExecutorService} to load the SVG image in the background. When the image is loaded, the
- * component that contains this image (command button from Component, for example) is notified so
- * that it can repaint itself.
- *
- * @author Kirill Grouchnikov.
- */
-public interface AsynchronousLoadListener extends EventListener {
+public class TestCommandButtonsFontScaling extends TestCommandButtons {
+    public TestCommandButtonsFontScaling() {
+        super();
+    }
+
+    @Override
+    protected void configureControlPanel(JPanel controlPanel) {
+        controlPanel.add(new RadianceFontScaleSelector());
+    }
+
     /**
-     * Indicates that the asynchronous load has been completed.
+     * Main method for testing.
      *
-     * @param success If <code>true</code>, the load has been completed
-     *                successfully.
+     * @param args Ignored.
      */
-    void completed(boolean success);
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame.setDefaultLookAndFeelDecorated(true);
+            RadianceThemingCortex.GlobalScope.setSkin(new BusinessSkin());
+
+            TestCommandButtonsFontScaling frame = new TestCommandButtonsFontScaling();
+            frame.setSize(800, 400);
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        });
+    }
 }
